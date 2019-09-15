@@ -8,6 +8,52 @@ class TicTacToe
     @computer_player = @player == 'O' ? 'X' : 'O'
     @columns = ('A'..'C').to_a
 
+    player_move
+  end
+
+  def player_move
+    empty_squares = get_empty_squares
+    print_board
+
+    puts 'Where do you want to move?'
+    print '> '
+    square = gets.chomp
+
+    move_column = @columns.index(square[0]&.upcase)
+    move_row = square[1].to_i - 1
+
+    unless empty_squares.any? [move_row, move_column]
+      puts 'Invalid Selection, select an empty space'
+      return player_move
+    end
+
+    @board[move_row, move_column] = @player
+
+    if is_winner?(@player)
+      puts "Congratulations! #{@player} wins!"
+    elsif empty_squares.empty?
+      puts 'Draw game: no more moves'
+    else
+      computer_move
+    end
+  end
+
+  def computer_move
+    empty_squares = get_empty_squares
+
+    unless empty_squares.empty?
+      move = empty_squares.sample
+      puts "#{@computer_player} selected #{@columns[move[1]]}#{move[0] + 1}"
+      @board[move[0], move[1]] = @computer_player
+    end
+
+    if is_winner?(@computer_player)
+      puts "#{@computer_player} wins! Better luck next time!"
+    elsif empty_squares.empty?
+      puts 'Draw game: no more moves'
+    else
+      player_move
+    end
   end
 
   def get_empty_squares
