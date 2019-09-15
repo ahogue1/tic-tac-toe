@@ -8,8 +8,15 @@ class TicTacToe
     @computer_player = @player == 'O' ? 'X' : 'O'
     @columns = ('A'..'C').to_a
 
-    print_board
-    p is_winner?(@player)
+  end
+
+  def get_empty_squares
+    empty_squares = []
+    @board.each_with_index do |square, row, col|
+      empty_squares << [row, col] if square == ' '
+    end
+
+    empty_squares
   end
 
   def print_board
