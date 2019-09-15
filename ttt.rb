@@ -2,13 +2,16 @@ require 'matrix'
 
 class TicTacToe
 
-  def initialize(player = 'X')
-    @player = player
+  def initialize
+    puts 'Welcome to Tic-Tac-Toe!'
+    puts 'Select player: X or O'
+    @player = gets.chomp.upcase
+
     @board = Matrix.build(3) { ' ' }
     @computer_player = @player == 'O' ? 'X' : 'O'
     @columns = ('A'..'C').to_a
 
-    player_move
+    @player == 'O' ? computer_move : player_move
   end
 
   def player_move
@@ -100,8 +103,4 @@ class TicTacToe
 
 end
 
-puts 'Welcome to Tic-Tac-Toe!'
-puts 'Select player: X or O'
-player = gets.chomp.upcase
-
-TicTacToe.new(player)
+TicTacToe.new
