@@ -30,9 +30,9 @@ class TicTacToe
     @board[move_row, move_column] = @player
 
     if is_winner?(@player)
-      puts "Congratulations! #{@player} wins!"
+      game_over("Congratulations! #{@player} wins!")
     elsif empty_squares.empty?
-      puts 'Draw game: no more moves'
+      game_over('Draw game: no more moves')
     else
       computer_move
     end
@@ -48,9 +48,9 @@ class TicTacToe
     end
 
     if is_winner?(@computer_player)
-      puts "#{@computer_player} wins! Better luck next time!"
+      game_over("#{@computer_player} wins! Better luck next time!")
     elsif empty_squares.empty?
-      puts 'Draw game: no more moves'
+      game_over('Draw game: no more moves')
     else
       player_move
     end
@@ -92,6 +92,12 @@ class TicTacToe
 
     mirrored_board.each(:diagonal).to_a == winning_line
   end
+
+  def game_over(message)
+    print_board
+    puts message
+  end
+
 end
 
 puts 'Welcome to Tic-Tac-Toe!'
